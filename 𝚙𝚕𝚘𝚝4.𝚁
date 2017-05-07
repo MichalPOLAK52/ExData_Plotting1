@@ -1,20 +1,20 @@
 
-"donwloading whole source of data"
-> data_all <- read.csv("household_power_consumption.txt", header=T, sep=';', na.strings="?", nrows=2075259, check.names=F, stringsAsFactors=F, comment.char="", quote='\"')
+## donwloading whole source of data
+data_all <- read.csv("household_power_consumption.txt", header=T, sep=';', na.strings="?", nrows=2075259, check.names=F, stringsAsFactors=F, comment.char="", quote='\"')
 
-"converting date to certain format"
-> data_all$Date <- as.Date(data_all$Date, format="%d/%m/%Y")
+## converting date to certain format
+data_all$Date <- as.Date(data_all$Date, format="%d/%m/%Y")
 
-"selecting only certain period from whole data source"
-> data <- subset(data_all, subset=(Date >= "2007-02-01" & Date <= "2007-02-02"))
+## selecting only certain period from whole data source
+data <- subset(data_all, subset=(Date >= "2007-02-01" & Date <= "2007-02-02"))
 
-"formating and creating new columng (joining date and time)"
-> datetime <- paste(as.Date(data$Date), data$Time)
-> data$Datetime <- as.POSIXct(datetime)
+## formating and creating new columng (joining date and time)
+datetime <- paste(as.Date(data$Date), data$Time)
+data$Datetime <- as.POSIXct(datetime)
 
 
 
-"creating plot 4"
+## creating plot 4
 par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
 with(data, {
     plot(Global_active_power~Datetime, type="l", 
@@ -30,5 +30,5 @@ with(data, {
     plot(Global_reactive_power~Datetime, type="l", 
          ylab="Global Rective Power (kilowatts)",xlab="")
 })
-> dev.copy(png, file="plot4.png", height=480, width=480)
-> dev.off()
+dev.copy(png, file="plot4.png", height=480, width=480)
+dev.off()
